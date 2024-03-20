@@ -1,0 +1,180 @@
+
+Liste outils/services numériques utiles :
+
+- Sublim text / notepad ++
+- suite libre office
+- latex / overleaf
+- zotero
+- lexicometrie : google n-gram / gallicagram
+- qgis (et qfield)
+- R et R Studio
+- exploratR ou http://analyse.univ-paris1.fr/ ou Explor
+- datagouv / zenodo/ nakala 
+- Open Refine
+- Magrit, kharto / graticule
+- geocodage : BAN 
+- Selection/ choix palette de couleur :https://colorbrewer2.org/  ou  https://projects.susielu.com/viz-palette
+- Gephi
+- CorText Manager / GarganText / iramuteq
+- gitlab / github
+- pgadmin
+- inkscape
+- filezilla (tranfert ftp)
+- greenshot (capture d'écran)
+- 7zip 
+- VLC
+- deepL
+- Cisco unicaen (dictionnaire des synonymes)
+- CNRTL (dico)
+- Obsidian (aide à l'orga)
+- trello
+- sonal
+- Huma-Num : notamment Whisper 
+- framasoft : framagenda / framaforms
+
+
+
+
+Travailler avec le numérique
+
+	Les outils et services numériques (pas tant les sources et BDD) pour la recherche : si possible libre et gratuit ?
+
+	Le workflows : pb de l'interopérabilité 
+
+	coût/bénéfice
+
+	=> site MATE-SHS : tuto outils ou méthodo
+
+
+Installer
+
+	- 7zip 
+	- VLC
+	- greenshot (capture d'écran)
+	- filezilla (tranfert ftp)
+	- navigateur web : mozilla (free /open source), Tor
+
+
+Noter, brouillonner, organiser
+
+	- Sublim text / notepad ++
+	- Obsidian
+	- framamind
+
+Lire et citer
+
+	- Zotero
+	Quelques plugins :
+		- zotero connector
+		- unpaywall / click and read : open access
+		- scite_ : nb et type de citations
+		- extranet ENPC
+
+	- tropy : corpus icono
+	- sci hub / libgen 
+
+Ecrire 
+
+	- libre office writer
+	- Word
+	- Latex (overleaf)
+
+Aide à l'écriture
+
+	- Un mot sur IA générative : ChatGPT
+	- Traduction : deepl 
+	- des dico 
+		- CRISCO unicaen (dictionnaire des synonymes)
+		- CNRTL (dico et étimologie)
+	- Contexte Lexicométrie :
+		- google n-gram
+		- gallicagram
+	- correction ortho-syntaxe : 
+		- scribens
+		- antidote
+
+Transcrire et coder (ses entretiens)
+
+	- whisper (un mot sur Humanum)
+	- sonal 
+
+	- Nvivo
+
+Travailler en groupe 
+
+	- framasoft : framapad / framagenda / framateams / framadate 
+	- ENT
+	- google drive
+	- gitlab / github
+	- trello
+
+
+Saisir et compter :
+
+	- calc 
+	- excel 
+
+	- questionnaire : framaforms
+
+	- bonus pour "corriger" : open refine
+
+voir les 10 règles de la saisie (Lemercier Zalc)
+
+Analyser et faire des stats
+
+	- les tableurs
+	- les appli pédagogiques (sous R) : 
+		- exploratR 
+		- http://analyse.univ-paris1.fr/ 
+
+	- R et Python 
+
+	Un mot sur le code
+
+
+Dessiner 
+
+	- Inkscape
+	- Illustrator
+
+
+Géographier et cartographier 
+
+	- geocodage : BAN, xyz
+	- GeoNames
+	- carto en ligne : 
+		- Magrit 
+		- graticule
+	- palette de couleur : 
+	 	- https://colorbrewer2.org/ 
+	 	- https://projects.susielu.com/viz-palette
+
+	- SIG  : QGIS
+		- plein de plugin ; notamment OSM
+		-  Qfield
+
+	- R : sf et ggplot / ou cartography
+
+
+
+
+Fouiller du texte 
+
+	- iramuteq
+
+	- gargantext
+
+	- CortexManager (transition réseau)
+
+
+
+"Reseauter" : analyse de réseaux
+
+	- Gephi
+	- R
+
+
+
+Conclu
+
+Huma-num, framasoft

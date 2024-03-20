@@ -1,0 +1,274 @@
+---
+title: "En vrac : quelques outils numériques pour les SHS"
+subtitle: "Séance TRUC (Travaux de Recherche d'Utilité Collective) 'Geek', le 20 mars 2024"
+author: "Paul Gourdon"
+bibliography: ../data/TRUC_geek_outilsnum.bib
+format: 
+  revealjs:
+    theme: serif
+    incremental: true
+    logo: "../data/visuel/logo_LATTS.png"
+    footer: "TRUC 20/03/24"
+    slide-number: true
+    scrollable: true
+    margin: 0.1
+    width: 2500
+    height: 1000
+editor: source
+---
+
+# Introduction
+
+::: notes
+Rappel de l'objectif de la séance : On balaie rapidement quelques outils qui peuvent être utiles dans le cadre de la thèse. On se sert de cette base pour échanger sur vos pratiques des outils numériques et vos besoins. Rappel du rôle d'IR : vous aider et vous accompagner sur vos questions concernant la méthodologie et les méthodes, les données, et les outils.
+:::
+
+## Travailler avec le numérique
+
+Pourquoi ?
+
+-   Automatiser ou faciliter certaines tâches
+
+-   Sauvegarder et partager plus facilement son travail
+
+-   Accéder à une capacité de calcul
+
+-   Parce qu'on est un peu obligé
+
+## Avant d'adopter un nouvel outil
+
+Quelques questions à se poser avant d'adopter un nouvel outil[^1] :
+
+[^1]: Je n'ai, pour l'instant, pas trouvé de références scientifiques ou d'indications précises dans des manuels de SHS sur ces dimensions. Ces questions proviennent simplement de mon expérience, elles ne sont ni exhaustives, ni forcément les plus pertinentes.
+
+-   *De quoi ai-je besoin ?* Repérer les tâches chronophages et/ou répétitives, les points de blocage, les idées qu'on ne sait pas comment réaliser.
+
+-   *A quelle fréquence je fais cette tâche/j'ai ce besoin ?* une fois dans la thèse, de manière intensive pendant une période, tous les jours ?
+
+-   Si c'est très ponctuel : *Est-ce que ça n'irait pas plus vite de le "faire à la main"/ sans l'outil ?*
+
+-   *Est-ce que ça va me demander beaucoup de temps d'apprentissage ?* Et si oui : est-ce que l'outil pourra me servir à faire d'autres choses ou après la thèse ?
+
+-   *Est-ce que ça va complexifier mes routines / chaînes de traitements / mon* "workflow" *(mot horrible)* ?
+
+## Choisir un nouvel outil
+
+Une fois qu'on a repéré une tâche/une fonction/ une action qui nécessiterait un outil numérique, quelques critères pour aider au choix[^2] :
+
+[^2]: Là encore, j'ai trouvé peu de choses côté académique après une recherche très rapide. Je m'appuie donc sur quelques éléments glanés sur le site d'une petite entreprise qui fait de l'éducation/médiation autour des outils numériques, `L'établi Numérique` : [https://letab.li/blog/2022_05_outils/](https://letab.li/blog/2022_05_outils/){target="_blank"} [@renaud2022]
+
+::: columns
+::: {.column width="50%"}
+![Triangle de choix des outils. Source : [L'Etabli Numérique](https://letab.li/blog/2022_05_outils/){target="_blank"}](../data/visuel/triangleoutil.png){fig-align="center"}
+:::
+
+::: {.column width="50%"}
+-   Maîtrise : possible accès/modification du code (*open source* ou propriétaire) ? développement/maintien dépend d'une seule entité/personne ou est-il distribué ?
+
+-   Adaptation fonctionnelle : à quel point l'outil correspond aux besoins que j'ai identifiés ?
+
+-   Coût : gratuit ou payant ? est-ce que ça va me demander beaucoup de temps de formation ?
+:::
+:::
+
+# Quelques outils en vrac
+
+
+
+```{r TitresSlides, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+# packages
+library(dplyr)
+library(readODS)
+library(knitr)
+library(kableExtra)
+library(grateful)
+
+### tableau des sources
+df <- read_ods("../data/outilsnum_shs.ods", sheet = 1)
+
+# colonne pour les logos
+
+df <- df %>%
+  mutate(LOGO = paste0("<","img src=", "../data/logo/",ID,".png",">"))
+
+### fonctions pour produire les slides automatiquement
+  
+## tableau filtré et mis en forme
+
+# variable à afficher 
+var_keep  <- c("LOGO","NOM", "URL", "DESCRIPTION", "TYPE", "LIBRE", "GRATUIT", "OS")
+ 
+# fonction de filtrage 
+fdf = function(df, slide = "section"){
+  # filtrage du tableau selon les section
+  filtered_df <- df[df$SECTION == slide, var_keep]
+  
+  # mise en forme du tableau
+  filtered_df %>%
+    # mettre l'URL sur le nom de l'outil
+    mutate(NOM = cell_spec(NOM, "html", link = URL, new_tab = TRUE)) %>%
+    # supprimer la colonne URL en tant que telle
+    select(-URL) %>%
+    # imprimer l'extrait du tableau en HTML
+    kable("html", escape = FALSE, align = "l")  %>%
+    # limite de taille de colonne pour les logos
+    column_spec(1, 
+                  spec_image(filtered_df$LOGO, 200, 200),
+                  # width_max  = "15mm",
+                  latex_valign = "m") %>%
+    # alignement vertical de toutes les cellules au milieu
+    row_spec(1:nrow(filtered_df) ,  bold = F, extra_css = 'vertical-align: middle !important;')
+} 
+
+## fonction pour produire les slides (titre + chunk pour tableau)
+
+fslide <- function(df){
+  
+  # tableau à partir des noms de sections uniques
+  slide_df <- data.frame(section = unique(df$SECTION))  
+  
+  # on créer une colonne de texte qui va mettre le titre de la slide et le chunk r avec la fonction fdf
+  slide_df <- slide_df %>% 
+    mutate(slide = paste(paste0("## ",section), # titre slide
+                paste0("```{r ",  # debut chunk r
+                section,  # nom chunk r
+                ", echo=FALSE, message=FALSE, warning=FALSE}"), # param chunk r
+                paste0("fdf(df, slide = '", # fonction tableau
+                section, # valeur pour filtrer selon la slide (fonction df)
+                "')"), # fin fonction tableau
+                "```", # fin chunk r
+                sep = "\n"))
+
+# fonction en sortie, une impression avec saut de ligne \n interprété
+  writeLines(slide_df$slide) 
+
+}
+
+## appliquer la fonction 
+
+fslide(df) # copier coller les resultats en dessous pour créer automatiquement les slides
+```
+
+## A installer sur un nouvel ordinateur
+
+```{r A installer sur un nouvel ordinateur, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'A installer sur un nouvel ordinateur')
+```
+
+## Noter, brouillonner, organiser
+
+```{r Noter, brouillonner, organiser, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Noter, brouillonner, organiser')
+```
+
+## Lire et citer
+
+```{r Lire et citer, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Lire et citer')
+```
+
+## Ecrire
+
+```{r Ecrire, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Ecrire')
+```
+
+## Aide à l'écriture
+
+```{r Aide à l’écriture, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Aide à l’écriture')
+```
+
+## Transcrire et coder (ses entretiens)
+
+```{r Transcrire et coder (ses entretiens), echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Transcrire et coder (ses entretiens)')
+```
+
+## Travailler en groupe
+
+```{r Travailler en groupe, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Travailler en groupe')
+```
+
+## Saisir et compter
+
+```{r Saisir et compter, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Saisir et compter')
+```
+
+## Une ressource utile : les 10 commandements de la saisie
+
+![[Les 10 commandements de la saisie](https://reshist.hypotheses.org/1071){target="_blank"}](../data/visuel/10commandementssaisie.jpg)
+
+Source : [@lemercier2008]
+
+## Analyser et faire des stats
+
+```{r Analyser et faire des stats, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Analyser et faire des stats')
+```
+
+## Dessiner
+
+```{r Dessiner, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Dessiner')
+```
+
+## Géographier et cartographier
+
+```{r Géographier et cartographier, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Géographier et cartographier')
+```
+
+## Fouiller du texte
+
+```{r Fouiller du texte, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Fouiller du texte')
+```
+
+## Réseauter : analyse de réseaux
+
+```{r Réseauter : analyse de réseaux, echo=FALSE, message=FALSE, warning=FALSE}
+fdf(df, slide = 'Réseauter : analyse de réseaux')
+```
+
+# Références
+
+## Ressources complémentaires
+
+-   la [TGIR Huma-Num](https://www.huma-num.fr/les-services-par-etapes/){target="_blank"} : un ensemble de services et outils pour les données numériques produites dans les projets de recherche en Sciences Humaines et Sociales.
+
+-   les solutions [Framasoft](https://framasoft.org/fr/){target="_blank"} : "degoogliser" Internet
+
+-   Différents annuaires et plateformes pour le logiciel libre avec, entre autres : [l'annuaire du libre](https://framalibre.org/){target="_blank"} , [le comptoir du libre](https://comptoir-du-libre.org/fr/){target="_blank"} , [SourceForge](https://sourceforge.net/){target="_blank"} , [GitHub](https://github.com/){target="_blank"}
+
+-   Quelques listes mails et blog : le blog [Quanti en SHS](https://quanti.hypotheses.org/){target="_blank"} et sa [liste de diffusion](https://groupes.renater.fr/sympa/info/quanti){target="_blank"} ; les webinaires [Vendredi Quanti](https://quantigre.hypotheses.org/){target="_blank"} ; les webinaires [tuto\@mate](https://mate-shs.cnrs.fr/actions/tutomate/){target="_blank"} de MATE-SHS ; blog des méthodes [quanti en Histoire](http://www.quanti.ihmc.ens.fr/){target="_blank"} ;  la liste de diffusion Digital Humanities [(DH)](https://groupes.renater.fr/sympa/info/dh){target="_blank"} ; le blog du groupe [fmr](https://groupefmr.hypotheses.org/){target="_blank"} pour l'analyse de réseaux (géographie).
+
+## Références mobilisées
+
+::: nonincremental
+1.  **Les documents cités sont les suivants** :
+
+</b>
+
+::: {#refs}
+:::
+
+</b>
+
+2.  **Ce document Quarto a été produit à l'aide des packages R suivants** :
+:::
+
+</b>
+
+```{r citation packages, echo=FALSE, message=FALSE, warning=FALSE}
+pkgs <- cite_packages(output = "table", 
+                      out.dir = ".", 
+                      cite.tidyverse = FALSE)
+knitr::kable(pkgs)
+```
+
+
+

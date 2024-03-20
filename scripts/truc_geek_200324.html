@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="truc_geek_200324_files/libs/clipboard/clipboard.min.js"></script>
+<script src="truc_geek_200324_files/libs/quarto-html/tabby.min.js"></script>
+<script src="truc_geek_200324_files/libs/quarto-html/popper.min.js"></script>
+<script src="truc_geek_200324_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="truc_geek_200324_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="truc_geek_200324_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="truc_geek_200324_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="truc_geek_200324_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.353">
+
+  <meta name="author" content="Paul Gourdon">
+  <title>En vrac : quelques outils numériques pour les SHS</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="truc_geek_200324_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="truc_geek_200324_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="truc_geek_200324_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="truc_geek_200324_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="truc_geek_200324_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="truc_geek_200324_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="truc_geek_200324_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  
+  <script src="truc_geek_200324_files/libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="truc_geek_200324_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">En vrac : quelques outils numériques pour les SHS</h1>
+  <p class="subtitle">Séance TRUC (Travaux de Recherche d’Utilité Collective) ‘Geek’, le 20 mars 2024</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Paul Gourdon 
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<section id="introduction" class="title-slide slide level1 center">
+<h1>Introduction</h1>
+<aside class="notes">
+<p>Rappel de l’objectif de la séance : On balaie rapidement quelques outils qui peuvent être utiles dans le cadre de la thèse. On se sert de cette base pour échanger sur vos pratiques des outils numériques et vos besoins. Rappel du rôle d’IR : vous aider et vous accompagner sur vos questions concernant la méthodologie et les méthodes, les données, et les outils.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="travailler-avec-le-numérique" class="slide level2">
+<h2>Travailler avec le numérique</h2>
+<p>Pourquoi ?</p>
+<ul>
+<li class="fragment"><p>Automatiser ou faciliter certaines tâches</p></li>
+<li class="fragment"><p>Sauvegarder et partager plus facilement son travail</p></li>
+<li class="fragment"><p>Accéder à une capacité de calcul</p></li>
+<li class="fragment"><p>Parce qu’on est un peu obligé</p></li>
+</ul>
+</section>
+<section id="avant-dadopter-un-nouvel-outil" class="slide level2">
+<h2>Avant d’adopter un nouvel outil</h2>
+<p>Quelques questions à se poser avant d’adopter un nouvel outil<sup>1</sup> :</p>
+<ul>
+<li class="fragment"><p><em>De quoi ai-je besoin ?</em> Repérer les tâches chronophages et/ou répétitives, les points de blocage, les idées qu’on ne sait pas comment réaliser.</p></li>
+<li class="fragment"><p><em>A quelle fréquence je fais cette tâche/j’ai ce besoin ?</em> une fois dans la thèse, de manière intensive pendant une période, tous les jours ?</p></li>
+<li class="fragment"><p>Si c’est très ponctuel : <em>Est-ce que ça n’irait pas plus vite de le “faire à la main”/ sans l’outil ?</em></p></li>
+<li class="fragment"><p><em>Est-ce que ça va me demander beaucoup de temps d’apprentissage ?</em> Et si oui : est-ce que l’outil pourra me servir à faire d’autres choses ou après la thèse ?</p></li>
+<li class="fragment"><p><em>Est-ce que ça va complexifier mes routines / chaînes de traitements / mon</em> “workflow” <em>(mot horrible)</em> ?</p></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Je n’ai, pour l’instant, pas trouvé de références scientifiques ou d’indications précises dans des manuels de SHS sur ces dimensions. Ces questions proviennent simplement de mon expérience, elles ne sont ni exhaustives, ni forcément les plus pertinentes.</p></li></ol></aside></section>
+<section id="choisir-un-nouvel-outil" class="slide level2">
+<h2>Choisir un nouvel outil</h2>
+<p>Une fois qu’on a repéré une tâche/une fonction/ une action qui nécessiterait un outil numérique, quelques critères pour aider au choix<sup>1</sup> :</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../data/visuel/triangleoutil.png"></p>
+<figcaption>Triangle de choix des outils. Source : <a href="https://letab.li/blog/2022_05_outils/" target="_blank">L’Etabli Numérique</a></figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><p>Maîtrise : possible accès/modification du code (<em>open source</em> ou propriétaire) ? développement/maintien dépend d’une seule entité/personne ou est-il distribué ?</p></li>
+<li class="fragment"><p>Adaptation fonctionnelle : à quel point l’outil correspond aux besoins que j’ai identifiés ?</p></li>
+<li class="fragment"><p>Coût : gratuit ou payant ? est-ce que ça va me demander beaucoup de temps de formation ?</p></li>
+</ul>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>Là encore, j’ai trouvé peu de choses côté académique après une recherche très rapide. Je m’appuie donc sur quelques éléments glanés sur le site d’une petite entreprise qui fait de l’éducation/médiation autour des outils numériques, <code>L'établi Numérique</code> : <a href="https://letab.li/blog/2022_05_outils/" target="_blank">https://letab.li/blog/2022_05_outils/</a> <span class="citation" data-cites="renaud2022">(<a href="#/références-mobilisées" role="doc-biblioref" onclick="">Renaud 2022</a>)</span></p></li></ol></aside></section></section>
+<section>
+<section id="quelques-outils-en-vrac" class="title-slide slide level1 center">
+<h1>Quelques outils en vrac</h1>
+
+</section>
+<section id="a-installer-sur-un-nouvel-ordinateur" class="slide level2">
+<h2>A installer sur un nouvel ordinateur</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/1.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/1.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.7-zip.org/" style="     " target="_blank">7zip</a></td>
+<td style="text-align: left; vertical-align: middle !important;">7-Zip is a file archiver with a high compression ratio</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/1.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/2.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.videolan.org/" style="     " target="_blank">VLC</a></td>
+<td style="text-align: left; vertical-align: middle !important;">VLC est un lecteur multimédia gratuit et libre et un système capable de lire la plupart des fichiers multimédias ainsi que des DVD, des CD Audio, des VCD, et divers protocoles de diffusion.</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/1.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/3.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://getgreenshot.org/" style="     " target="_blank">Greenshot</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Greenshot is a light-weight screenshot software tool for Windows with the following key features</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/1.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/4.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://filezilla-project.org/" style="     " target="_blank">FileZilla</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Welcome to the homepage of FileZilla, the free FTP solution. The FileZilla Client not only supports FTP, but also FTP over TLS (FTPS) and SFTP</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/1.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/5.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.mozilla.org/" style="     " target="_blank">Mozilla Firefox</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Mozilla Firefox [mɒˈzɪlə ˈfaɪɚfɑks] est un navigateur web libre et gratuit disponible pour PC et mobile</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/1.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/6.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.torproject.org/" style="     " target="_blank">Tor</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Tor, short for The Onion Router, is free and open-source software for enabling anonymous communication. It directs Internet traffic via a free, worldwide volunteer overlay network that consists of more than seven thousand relays</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="noter-brouillonner-organiser" class="slide level2">
+<h2>Noter, brouillonner, organiser</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/7.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/7.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.sublimetext.com/" style="     " target="_blank">Sublim Text</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Sublime Text is a shareware text and source code editor available for Windows, macOS, and Linux. It natively supports many programming languages and markup languages.</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/7.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/9.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://obsidian.md/" style="     " target="_blank">Obsidian</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Obsidian est une application de gestion des connaissances personnelles et une application logicielle de prise de notes qui fonctionne sur les fichiers Markdown. Il permet aux utilisateurs de créer des liens internes pour leurs notes, puis de visualiser les connexions sous forme de graphique.</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/7.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/10.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://framindmap.org/" style="     " target="_blank">Framindmap</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Framindmap permet de créer et partager des cartes mentales (aussi appelées « cartes heuristiques »). Vous pouvez organiser un brainstorming, ordonner vos idées à plusieurs, apprendre et faire apprendre une leçon, réaliser des classifications, identifier les éléments importants…</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="lire-et-citer" class="slide level2">
+<h2>Lire et citer</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/11.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/11.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.zotero.org/" style="     " target="_blank">Zotero</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Zotero is a free, easy-to-use tool to help you collect, organize, annotate, cite, and share research</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/11.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/12.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.zotero.org/download/connectors#" style="     " target="_blank">Zotero connector</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Zotero Connectors allow you to save to Zotero directly from your web browser.</td>
+<td style="text-align: left; vertical-align: middle !important;">plugin</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/11.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/13.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://unpaywall.org/" style="     " target="_blank">unpaywall</a></td>
+<td style="text-align: left; vertical-align: middle !important;">An open database of 49 647 511 free scholarly articles. Read research papers for free. Click the green tab and skip the paywall on millions of peer-reviewed journal articles. It's fast, free, and legal</td>
+<td style="text-align: left; vertical-align: middle !important;">plugin</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/11.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/14.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://bib.cnrs.fr/click-read/" style="     " target="_blank">click and read</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Click &amp; Read est un mode d’accès complémentaire au portail BibCnrs.</td>
+<td style="text-align: left; vertical-align: middle !important;">plugin</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/11.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/15.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://scite.ai/extension-install" style="     " target="_blank">scite</a></td>
+<td style="text-align: left; vertical-align: middle !important;">The scite browser extension is a free extension that gives you the power of scite on the go so that you can see how any research article has been cited.</td>
+<td style="text-align: left; vertical-align: middle !important;">plugin</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/11.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/16.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://espacechercheurs.enpc.fr/en/remote-access" style="     " target="_blank">extranet enpc</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Signet d’accès distance à mettre dans ces favoris, permettant l’authentification automatique à votre compte ENPC (pour avoir accès à l’article, si disponible</td>
+<td style="text-align: left; vertical-align: middle !important;">plugin</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/11.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/17.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://tropy.org/" style="     " target="_blank">Tropy</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Tropy is a free and open-source desktop knowledge organization application that helps users manage and describe photographs of research materials. Photos imported into Tropy can be combined into single items, described with metadata that is applied in bulk or created with custom metadata templates, annotated with research notes, and tagged in accordance with a researcher's preferred mode of organization.</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/11.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/18.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://sci-hub.41610.org/" style="     " target="_blank">Sci-Hub</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Sci-Hub (ou Scihub) est un site web fournissant un accès libre à des articles scientifiques obtenus par web scraping en contournant les paywalls (« péages ») classiques des éditeurs académiques. Des publications sont ajoutées quotidiennement après avoir été téléchargées via des proxys d'établissements universitaires</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/11.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/19.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://libgenesis.net/" style="     " target="_blank">LibGen</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Library Genesis ou LibGen est un moteur de recherche d'articles et de livres scientifiques qui facilite l'accès aux contenus soumis à un péage. Il diffuse notamment les fichiers PDF du portail Web ScienceDirect d'Elsevier</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="ecrire" class="slide level2">
+<h2>Ecrire</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/20.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/20.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.libreoffice.org/discover/writer/" style="     " target="_blank">Libre Office Writer</a></td>
+<td style="text-align: left; vertical-align: middle !important;">LibreOffice Writer is the free and open-source word processor and desktop publishing component of the LibreOffice software package and is a fork of OpenOffice.org Writer. Writer is a word processor similar to Microsoft Word and Corel's WordPerfect with many similar features, and file format compatibility</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/20.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/21.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.microsoft.com/fr-fr/microsoft-365/word" style="     " target="_blank">Microsoft Word</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Microsoft Word est un logiciel de traitement de texte publié par Microsoft</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/20.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/22.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://fr.overleaf.com/" style="     " target="_blank">Overleaf (LaTeX)</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Overleaf est un éditeur LaTeX en ligne, collaboratif en temps réel</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="aide-à-lécriture" class="slide level2">
+<h2>Aide à l’écriture</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/23.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/23.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://chat.openai.com/" style="     " target="_blank">ChatGPT</a></td>
+<td style="text-align: left; vertical-align: middle !important;">IA générative/conversationnelle basé sur les grands modèles de langages</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/23.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/24.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.deepl.com/translator" style="     " target="_blank">DeepL</a></td>
+<td style="text-align: left; vertical-align: middle !important;">IA pour la traduction</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/23.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/25.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://crisco4.unicaen.fr/" style="     " target="_blank">CRISCO</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Dictionnaire de synonyme en français</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/23.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/26.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.cnrtl.fr/portail/" style="     " target="_blank">CNRTL</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Le Centre national de ressources textuelles et lexicales est une organisation française qui met en ligne des données linguistiques. Intégration de plusieurs dictionnaires</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/23.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/27.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://shiny.ens-paris-saclay.fr/app/gallicagram" style="     " target="_blank">Gallicagram</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Gallicagram est un programme représentant graphiquement l’évolution au cours du temps de la fréquence d’apparition d’un ou plusieurs syntagmes dans les corpus numérisés de Gallica et de beaucoup d’autres bibliothèques</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/23.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/28.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://books.google.com/ngrams/" style="     " target="_blank">Google Ngram Viewer</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Ngram Viewer est une application linguistique proposée par Google, permettant d’observer l’évolution de la fréquence d’un ou de plusieurs mots. L’outil Ngram de Google repose sur la base de données textuelles de Google Livres.</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/23.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/29.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.scribens.fr/index.html" style="     " target="_blank">Scribens</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Correcteur orthographique et grammaire en ligne</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/23.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/30.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.antidote.info/fr/" style="     " target="_blank">Antidote</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Antidote est un logiciel de correction grammaticale et d’aide à la rédaction en français et en anglais</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="transcrire-et-coder-ses-entretiens" class="slide level2">
+<h2>Transcrire et coder (ses entretiens)</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/31.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/31.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://github.com/openai/whisper" style="     " target="_blank">Whisper</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Accessible par la TGIR Huma-Num. Whisper est un logiciel libre de « retranscription automatique de la parole » (automatic speech recognition), basé sur un réseau de neurones artificiels entraîné sur plusieurs centaines de milliers d’heures d’enregistrement, en plusieurs dizaines de langues différentes</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/31.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/32.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="http://www.sonal-info.com/" style="     " target="_blank">Sonal</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Sonal est un logiciel gratuit d'enquête qualitative. Il vous permet de collecter, d'organiser, de transcrire et d'analyser des fichiers audio/vidéo.</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/31.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/33.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://lumivero.com/products/nvivo/" style="     " target="_blank">Nvivo</a></td>
+<td style="text-align: left; vertical-align: middle !important;">NVivo is a qualitative data analysis (QDA) computer software. NVivo is intended to help users organize and analyze non-numerical or unstructured data.</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="travailler-en-groupe" class="slide level2">
+<h2>Travailler en groupe</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/34.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/34.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://framapad.org/" style="     " target="_blank">Framapad</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Framapad est un service en ligne de traitement de texte (une sorte de Word ou Writer très simplifié), et de travail collaboratif (proche de Google Drive), reposant sur l'application libre EtherPad,</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/34.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/35.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://framagenda.org/" style="     " target="_blank">Framagenda</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Framagenda est un service en ligne de gestion et de partage de calendriers.</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/34.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/36.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://framateam.org/" style="     " target="_blank">Framateam / Mattermost</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Framateam est un service de tchat libre qui permet de communiquer avec son équipe en notifiant ses collègues, de conserver ses conversations et d'y faire des recherches.</td>
+<td style="text-align: left; vertical-align: middle !important;">online&nbsp;; log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/34.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/37.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://framadate.org/" style="     " target="_blank">Framadate</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Framadate est un service en ligne permettant de planifier un rendez-vous ou prendre des décisions rapidement et simplement. Aucune inscription préalable n’est nécessaire.</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/34.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/38.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="NA" style="     " target="_blank">ent uge/enpc</a></td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/34.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/39.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.google.com/intl/fr/drive/" style="     " target="_blank">Google Drive</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Google Drive est un service de stockage et de partage de fichiers dans le cloud lancé par la société Google</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/34.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/40.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://about.gitlab.com/" style="     " target="_blank">GitLab</a></td>
+<td style="text-align: left; vertical-align: middle !important;">GitLab est un logiciel libre de forge basé sur git proposant les fonctionnalités de wiki, un système de suivi des bugs, l’intégration continue et la livraison continue.</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/34.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/41.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://github.com/" style="     " target="_blank">GitHub</a></td>
+<td style="text-align: left; vertical-align: middle !important;">GitHub est un service web d'hébergement et de gestion de développement de logiciels, utilisant le logiciel de gestion de versions Git</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/34.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/42.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://trello.com/" style="     " target="_blank">Trello</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Trello est un outil de gestion de projet en ligne. Il repose sur une organisation des projets en planches listant des cartes, chacune représentant des tâches. Les cartes sont assignables à des utilisateurs et sont mobiles d'une planche à l'autre, traduisant leur avancement.</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="saisir-et-compter" class="slide level2">
+<h2>Saisir et compter</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/43.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/43.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://fr.libreoffice.org/discover/calc/" style="     " target="_blank">Libre Office Calc</a></td>
+<td style="text-align: left; vertical-align: middle !important;">LibreOffice Calc is the spreadsheet component of the LibreOffice software package</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/43.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/44.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.microsoft.com/fr-fr/microsoft-365/excel" style="     " target="_blank">Microsoft Excel</a></td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/43.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/45.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://framaforms.org/abc/fr/" style="     " target="_blank">Framaforms</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Framaforms est un service en ligne libre qui permet de créer, éditer et publier ses formulaires en ligne, puis d’en récolter, analyser et exporter les réponses.</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/43.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/46.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://openrefine.org/" style="     " target="_blank">OpenRefine</a></td>
+<td style="text-align: left; vertical-align: middle !important;">OpenRefine est un logiciel libre de nettoyage et de mise en forme de données. Il est similaire dans son apparence à un tableur mais fonctionne en fait comme une base de données.</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/43.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/47.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://analytics.huma-num.fr/geographie-cites/ExploratR/" style="     " target="_blank">exploratR</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Outil interactif d’exploration statistique uni- bi- tri- et multi-variée avec R.</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/43.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/48.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="http://analyse.univ-paris1.fr/" style="     " target="_blank">analyseSHS</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Le projet Analyse SHS est une interface web de traitements de tableau de données pour les étudiants et les chercheurs en sciences humaines et sociales. Elle permet de mettre en œuvre des statistiques descriptives et multidimensionnelles à partir de tableaux envoyés par l'utilisateur depuis un navigateur web</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="une-ressource-utile-les-10-commandements-de-la-saisie" class="slide level2">
+<h2>Une ressource utile : les 10 commandements de la saisie</h2>
+
+<img data-src="../data/visuel/10commandementssaisie.jpg" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://reshist.hypotheses.org/1071" target="_blank">Les 10 commandements de la saisie</a></p><p>Source : <span class="citation" data-cites="lemercier2008">(<a href="#/références-mobilisées" role="doc-biblioref" onclick="">Lemercier and Zalc 2008</a>)</span></p>
+</section>
+<section id="analyser-et-faire-des-stats" class="slide level2">
+<h2>Analyser et faire des stats</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/49.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/49.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.r-project.org/" style="     " target="_blank">R</a></td>
+<td style="text-align: left; vertical-align: middle !important;">R est un langage de programmation et un logiciel libre destiné aux statistiques et à la science des données soutenu par la R Foundation for Statistical Computing</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/49.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/50.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://posit.co/download/rstudio-desktop/" style="     " target="_blank">Rstudio</a></td>
+<td style="text-align: left; vertical-align: middle !important;">RStudio est un environnement de développement gratuit, libre et multiplateforme pour R, un langage de programmation utilisé pour le traitement de données et l’analyse statistique</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/49.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/51.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.python.org/" style="     " target="_blank">Python</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Python (prononcé /pi.tɔ̃/) est un langage de programmation interprété, multiparadigme et multiplateformes.</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="dessiner" class="slide level2">
+<h2>Dessiner</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/53.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/53.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://inkscape.org/fr/" style="     " target="_blank">Inkscape</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Inkscape est un logiciel de dessin vectoriel libre multiplateforme</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/53.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/54.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.adobe.com/fr/products/illustrator" style="     " target="_blank">Adobe Illustrator</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Adobe Illustrator est un logiciel de création graphique vectorielle</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="géographier-et-cartographier" class="slide level2">
+<h2>Géographier et cartographier</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/55.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/55.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://adresse.data.gouv.fr/" style="     " target="_blank">Base Adresse Nationale (BAN)</a></td>
+<td style="text-align: left; vertical-align: middle !important;">La Base Adresse Nationale est l’une des neuf bases de données du service public des données de référence. Elle est la seule base de données d’adresses officiellement reconnue par l’administration.</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/55.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/56.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://geocode.xyz/" style="     " target="_blank">geocode.xyz</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Appli et API de géocodage</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">non</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/55.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/57.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.geonames.org/" style="     " target="_blank">GeoNames</a></td>
+<td style="text-align: left; vertical-align: middle !important;">GeoNames est une base de données géographiques gratuite et accessible par Internet sous une licence Creative Commons. L'interface est de type wiki et les utilisateurs peuvent ajouter des données, les améliorer ou corriger les données présentes</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/55.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/58.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://magrit.cnrs.fr/" style="     " target="_blank">Magrit</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Cartographie thématique en ligne</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/55.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/59.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.sciencespo.fr/cartographie/graticule/" style="     " target="_blank">Graticule</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Cartographie thématique en ligne</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/55.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/60.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://colorbrewer2.org/" style="     " target="_blank">ColorBrewer</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Interface interactive pour l’aide au choix de palettes de couleurs pour la cartographie</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/55.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/61.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://projects.susielu.com/viz-palette" style="     " target="_blank">Viz Palette</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Interface interactive pour l’aide au choix de palettes de couleurs pour la visualisation de données</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/55.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/62.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://www.qgis.org/fr/site/" style="     " target="_blank">Qgis</a></td>
+<td style="text-align: left; vertical-align: middle !important;">QGIS est un logiciel SIG (système d'information géographique) libre multiplate-forme publié sous licence GPL.</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/55.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/63.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://qfield.org/" style="     " target="_blank">Qfield</a></td>
+<td style="text-align: left; vertical-align: middle !important;">L'application SIG mobile a pour but de collecter les données du terrain et de les intégrer facilement à un projet QGIS.</td>
+<td style="text-align: left; vertical-align: middle !important;">phoneapp</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="fouiller-du-texte" class="slide level2">
+<h2>Fouiller du texte</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/64.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/64.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="http://www.iramuteq.org/" style="     " target="_blank">IRaMuTeQ</a></td>
+<td style="text-align: left; vertical-align: middle !important;">IRaMuTeQ (pour « Interface de R pour les Analyses Multidimensionnelles de Textes et de Questionnaires ») est un logiciel libre et ouvert d'analyse de données textuelles ou de statistique textuelle qui fonctionne en interface avec le langage R.</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/64.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/65.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://cnrs.gargantext.org/" style="     " target="_blank">Gargantext</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Gargantext est un logiciel libre pour l’exploration interactive de grands corpus numériques. Ce service web combine l’exploration de texte avancée, l’analyse de réseau et la visualisation interactive pour fournir de nouvelles formes d’interactions avec vos corpus</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/64.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/66.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://managerv2.cortext.net/login" style="     " target="_blank">Cortext Manager</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Cette application web peut produire un grand nombre d’analyses différentes qui ont trait aux champs méthodologiques du traitement automatique de la langue, de l’analyse des réseaux sociaux, de la statistique, et plus récemment autour de la dimension géographique qui se cache dans ces données.</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="réseauter-analyse-de-réseaux" class="slide level2">
+<h2>Réseauter : analyse de réseaux</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">LOGO</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">NOM</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DESCRIPTION</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">TYPE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">LIBRE</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">GRATUIT</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/67.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/67.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://gephi.org/" style="     " target="_blank">Gephi</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Gephi is a visualization and exploration software for all kinds of graphs and networks. Gephi is open-source and free</td>
+<td style="text-align: left; vertical-align: middle !important;">log_local</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">Win&nbsp;; Mac&nbsp;; Linux</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: list(path = &quot;<img src=../data/logo/67.png>&quot;, dev = &quot;external&quot;, type = &quot;image&quot;, width = 200, height = 200, res = 300, svg_text = NULL); vertical-align: middle !important;"><img data-src="../data/logo/68.png"></td>
+<td style="text-align: left; vertical-align: middle !important;"><a href="https://aviz.fr/paohvis/paoh.html" style="     " target="_blank">PaohVis</a></td>
+<td style="text-align: left; vertical-align: middle !important;">Parallel Aggregated Ordered Hypergraph (PAOH) is a novel technique to visualize dynamic hypergraphs. Hypergraphs are a generalization of graphs where edges can connect more than two vertices. Hypergraphs can be used to model co-authorship networks with multiple authors per article, or networks of business partners. A dynamic hypergraph evolves over discrete time slots</td>
+<td style="text-align: left; vertical-align: middle !important;">online</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">oui</td>
+<td style="text-align: left; vertical-align: middle !important;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section></section>
+<section>
+<section id="références" class="title-slide slide level1 center">
+<h1>Références</h1>
+
+</section>
+<section id="ressources-complémentaires" class="slide level2">
+<h2>Ressources complémentaires</h2>
+<ul>
+<li class="fragment"><p>la <a href="https://www.huma-num.fr/les-services-par-etapes/" target="_blank">TGIR Huma-Num</a> : un ensemble de services et outils pour les données numériques produites dans les projets de recherche en Sciences Humaines et Sociales.</p></li>
+<li class="fragment"><p>les solutions <a href="https://framasoft.org/fr/" target="_blank">Framasoft</a> : “degoogliser” Internet</p></li>
+<li class="fragment"><p>Différents annuaires et plateformes pour le logiciel libre avec, entre autres : <a href="https://framalibre.org/" target="_blank">l’annuaire du libre</a> , <a href="https://comptoir-du-libre.org/fr/" target="_blank">le comptoir du libre</a> , <a href="https://sourceforge.net/" target="_blank">SourceForge</a> , <a href="https://github.com/" target="_blank">GitHub</a></p></li>
+<li class="fragment"><p>Quelques listes mails et blog : le blog <a href="https://quanti.hypotheses.org/" target="_blank">Quanti en SHS</a> et sa <a href="https://groupes.renater.fr/sympa/info/quanti" target="_blank">liste de diffusion</a> ; les webinaires <a href="https://quantigre.hypotheses.org/" target="_blank">Vendredi Quanti</a> ; les webinaires <a href="https://mate-shs.cnrs.fr/actions/tutomate/" target="_blank">tuto@mate</a> de MATE-SHS ; blog des méthodes <a href="http://www.quanti.ihmc.ens.fr/" target="_blank">quanti en Histoire</a> ; la liste de diffusion Digital Humanities <a href="https://groupes.renater.fr/sympa/info/dh" target="_blank">(DH)</a> ; le blog du groupe <a href="https://groupefmr.hypotheses.org/" target="_blank">fmr</a> pour l’analyse de réseaux (géographie).</p></li>
+</ul>
+</section>
+<section id="références-mobilisées" class="slide level2 smaller scrollable">
+<h2>Références mobilisées</h2>
+<div>
+<ol type="1">
+<li><strong>Les documents cités sont les suivants</strong> :</li>
+</ol>
+<p></p>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-lemercier2008" class="csl-entry" role="listitem">
+Lemercier, Claire, and Claire Zalc. 2008. <em><span>M<span>é</span>thodes quantitatives pour l’historien</span></em>. <span>Rep<span>è</span>res</span>. Paris: La D<span>é</span>couverte.
+</div>
+<div id="ref-renaud2022" class="csl-entry" role="listitem">
+Renaud, Romain. 2022. <span>“<span>Choisir un outil num<span>é</span>rique, comment faire ?</span>”</span> <em>L’<span>é</span>tabli num<span>é</span>rique</em>. https://letab.li/blog/2022_05_outils/.
+</div>
+</div>
+<p></p>
+<ol start="2" type="1">
+<li><strong>Ce document Quarto a été produit à l’aide des packages R suivants</strong> :</li>
+</ol>
+</div>
+<p></p>
+<div class="cell">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Package</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Version</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Citation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">4.2.2</td>
+<td style="text-align: left;">@base</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dplyr</td>
+<td style="text-align: left;">1.1.3</td>
+<td style="text-align: left;">@dplyr</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">kableExtra</td>
+<td style="text-align: left;">1.3.4</td>
+<td style="text-align: left;">@kableExtra</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">knitr</td>
+<td style="text-align: left;">1.44</td>
+<td style="text-align: left;">@knitr2014; @knitr2015; @knitr2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">readODS</td>
+<td style="text-align: left;">2.1.0</td>
+<td style="text-align: left;">@readODS</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rmarkdown</td>
+<td style="text-align: left;">2.25</td>
+<td style="text-align: left;">@rmarkdown2018; @rmarkdown2020; @rmarkdown2023</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+
+<img src="../data/visuel/logo_LATTS.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<p>TRUC 20/03/24</p>
+</div>
+</section></section>
+
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="truc_geek_200324_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="truc_geek_200324_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="truc_geek_200324_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="truc_geek_200324_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="truc_geek_200324_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="truc_geek_200324_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="truc_geek_200324_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="truc_geek_200324_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="truc_geek_200324_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="truc_geek_200324_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 2500,
+
+        height: 1000,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
