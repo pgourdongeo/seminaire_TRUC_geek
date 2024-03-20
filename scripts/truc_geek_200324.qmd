@@ -5,6 +5,8 @@ author: "Paul Gourdon"
 bibliography: ../data/TRUC_geek_outilsnum.bib
 format: 
   revealjs:
+    embed-resources: true
+    standalone: true
     theme: serif
     incremental: true
     logo: "../data/visuel/logo_LATTS.png"
